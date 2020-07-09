@@ -144,7 +144,8 @@ class MypyItem(pytest.Item):
         full exception repr.
         """
         if excinfo.errisinstance(MypyError):
-            return excinfo.value.args[0]
+            return '\n'.join(
+                f'{self.fspath}:{line}' for line in excinfo.value.args[0].splitlines())
         return super().repr_failure(excinfo)
 
 
